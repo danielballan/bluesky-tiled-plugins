@@ -56,8 +56,14 @@ BlueskyEventStream = "bluesky_tiled_plugins.clients.bluesky_event_stream:Bluesky
 
 [dependency-groups]
 test = [
+  "bluesky",
+  "h5py",
+  "jinja2",
+  "ophyd",
   "pytest >=6",
   "pytest-cov >=3",
+  "tifffile",
+  "tiled[server] >=0.2.0",
 ]
 dev = [
   { include-group = "test" },
