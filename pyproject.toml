@@ -74,6 +74,7 @@ docs = [
   "pydata_sphinx_theme",
   "sphinx>=7.0",
   "sphinx_copybutton",
+  "sphinx_autobuild",
   "sphinx_autodoc2",
   "sphinx_autodoc_typehints",
   "sphinx_design",
