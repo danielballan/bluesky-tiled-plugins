@@ -8,6 +8,7 @@ from typing import Any
 project = "bluesky-tiled-plugins"
 copyright = "Bluesky Collaboration"
 author = "Bluesky Collaboration"
+github_user = "bluesky"
 
 # The full version, including alpha/beta/rc tags.
 release = importlib.metadata.version("bluesky_tiled_plugins")
@@ -22,13 +23,13 @@ else:
     version = release
 
 extensions = [
+    "autodoc2",
     "myst_parser",
+    "numpydoc",
     "sphinx.ext.autodoc",
     "sphinx.ext.intersphinx",
     "sphinx.ext.mathjax",
     "sphinxcontrib.mermaid",
-    "sphinx.ext.napoleon",
-    "sphinx_autodoc_typehints",
     "sphinx_copybutton",
     "sphinx_design",
 ]
@@ -44,17 +45,23 @@ exclude_patterns = [
 ]
 
 html_theme = "pydata_sphinx_theme"
-
+html_logo = "_static/logo.svg"
 html_theme_options: dict[str, Any] = {
-    "github_url": "https://github.com/bluesky/bluesky-tiled-plugins",
+    "github_url": f"https://github.com/{github_user}/{project}",
     "external_links": [
         {
             "name": "Bluesky Project",
             "url": "https://blueskyproject.io",
         },
     ],
+    "icon_links": [
+        {
+            "name": "PyPI",
+            "url": f"https://pypi.org/project/{project}",
+            "icon": "fas fa-cube",
+        },
+    ],
 }
-github_user = "bluesky"
 html_context = {
     "github_user": github_user,
     "github_repo": project,
@@ -87,3 +94,21 @@ html_show_copyright = False
 # https://sphinx-copybutton.readthedocs.io/en/latest/use.html#using-regexp-prompt-identifiers
 copybutton_prompt_text = r">>> |\.\.\. |\$ |In \[\d*\]: | {2,5}\.\.\.: | {5,8}: "
 copybutton_prompt_is_regexp = True
+
+# Which package to load and document
+autodoc2_packages = [{"path": "../src/bluesky_tiled_plugins", "auto_mode": True}]
+
+# Put them in docs/_api which is git ignored
+autodoc2_output_dir = "_api"
+
+# Don't document private things
+autodoc2_hidden_objects = {"private", "dunder", "inherited"}
+
+# We don't have any docstring for __init__, so by separating
+# them here we don't get the "Initilize" text that would otherwise be added
+autodoc2_class_docstring = "both"
+
+# Which objects to include docstrings for. ‘direct’ means only from objects
+# that are not inherited.
+autodoc2_docstrings = "all"
+
