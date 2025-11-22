@@ -1,2 +1,2 @@
 docs:
-  uv run --group docs sphinx-autobuild -nT --open-browser docs docs/_build/html
+  rm -rf docs/_build && rm -rf docs/_api && uv run --group docs sphinx-autobuild -nT docs docs/_build/html
