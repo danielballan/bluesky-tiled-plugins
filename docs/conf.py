@@ -26,7 +26,6 @@ extensions = [
     "autodoc2",
     "myst_parser",
     "numpydoc",
-    "sphinx.ext.autodoc",
     "sphinx.ext.intersphinx",
     "sphinx.ext.mathjax",
     "sphinxcontrib.mermaid",
@@ -74,12 +73,23 @@ myst_enable_extensions = [
 ]
 
 intersphinx_mapping = {
+    "bluesky": ("https://blueskyproject.io/bluesky/main", None),
+    "event_model": ("https://blueskyproject.io/event-model/main", None),
+    "numpy": ("https://numpy.org/devdocs/", None),
     "python": ("https://docs.python.org/3", None),
+    "tiled": ("https://blueskyproject.io/tiled", None),
 }
 
 nitpick_ignore = [
     ("py:class", "_io.StringIO"),
     ("py:class", "_io.BytesIO"),
+]
+# Ignore some missing intersphinx (workaround)
+nitpick_ignore_regex = [
+    (r"py:.*", r"event_model\..*"),
+    (r"py:.*", r"tiled\..*"),
+    (r"py:.*", r"bluesky_tiled_plugins._version\..*"),
+    (r"py:.*", r"bluesky_tiled_plugins.clients.bluesky_run._BlueskyRunSQL"),
 ]
 
 always_document_param_types = True
@@ -96,10 +106,12 @@ copybutton_prompt_text = r">>> |\.\.\. |\$ |In \[\d*\]: | {2,5}\.\.\.: | {5,8}: 
 copybutton_prompt_is_regexp = True
 
 # Which package to load and document
-autodoc2_packages = [{"path": "../src/bluesky_tiled_plugins", "auto_mode": True}]
+autodoc2_packages = [{"path": "../src/bluesky_tiled_plugins"}]
 
 # Put them in docs/_api which is git ignored
 autodoc2_output_dir = "_api"
+
+autodoc2_render_plugin = "myst"
 
 # Don't document private things
 autodoc2_hidden_objects = {"private", "dunder", "inherited"}
