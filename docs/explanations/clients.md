@@ -15,7 +15,7 @@ displayed:
  <BlueskyRun v2.0 {'baseline', 'primary'} scan_id=42860 uid='1ae45615' 2025-11-23 13:48>
 ```
 
-Navigating **without** `bleusky-tiled-plugins` installed, we see more generic
+Navigating **without** `bluesky-tiled-plugins` installed, we see more generic
 information:
 
 ```
