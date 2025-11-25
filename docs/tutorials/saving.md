@@ -1,5 +1,97 @@
 # Saving Bluesky Runs into Tiled
 
+## Install Tiled Server
+
+In addition to `bluesky-tiled-plugins`, this tutorial requires `tiled` and its
+server dependencies.
+
+<!-- prettier-ignore-start -->
+
+::::{tab-set}
+:sync-group: install
+
+:::{tab-item} pip
+:sync: pip
+
+You will need python 3.10 or later. You can check your version of python by
+typing into a terminal:
+
+```sh
+python3 --version
+```
+
+It is recommended that you install into a “virtual environment” so this
+installation will not interfere with any existing Python software:
+
+```sh
+python3 -m venv ./venv
+source ./venv/bin/activate
+```
+
+You can now use `pip` to install the library and its dependencies:
+
+```sh
+python3 -m pip install bluesky-tiled-plugins "tiled[server]"
+```
+
+:::
+
+:::{tab-item} conda
+:sync: conda
+
+Create a conda environment.
+
+```sh
+conda create -n try-tiled
+conda activate try-tiled
+```
+
+Install the package.
+
+```sh
+conda install -c conda-forge bluesky-tiled-plugins tiled-server
+```
+
+:::
+
+:::{tab-item} uv
+:sync: uv
+
+Create a project.
+
+```sh
+uv init
+```
+
+Add `bluesky-tiled-plugins` to it.
+
+```sh
+uv add bluesky-tiled-plugins "tiled[server]"
+```
+
+:::
+
+:::{tab-item} pixi
+:sync: pixi
+
+Create a workspace.
+
+```sh
+pixi init
+```
+
+Add `bluesky-tiled-plugins` to it.
+
+```sh
+pixi add bluesky-tiled-plugins tiled-server
+```
+
+:::
+
+::::
+
+<!-- prettier-ignore-end -->
+
 ## Complete Example
 
 A minimal simulated example of using `TiledWriter` in a Bluesky plan is shown
