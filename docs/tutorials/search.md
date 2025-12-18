@@ -6,26 +6,88 @@ and end of each Run: the _Run Start_ and _Run Stop_ documents.
 
 A dot `.` can be used to traverse nested fields.
 
+For this example we will use the public Tiled server at
+`https://tiled-demo.nsls2.bnl.gov`.
+
+```python
+>>> from tiled.client import from_uri
+>>> client = from_uri('https://tiled-demo.nsls2.bnl.gov')
+>>> client
+<Container {'bmm', 'csx', 'fxi'}>
+```
+
+We can look, for example, at some Bluesky data from the BMM beamline.
+
+```python
+>>> catalog = client['bmm']
+>>> catalog
+<Catalog {22521, 22524, 22525, 22526, 22528, 22542, 22545, ...} ~25 entries>
+```
+
+To get a sense of what we might search on, we might peek at the metadata on
+the first item.
+
+```python
+>>> catalog.values().first().metadata
+```
+
+This is a nested dictionary. Here is an excerpt.
+
+```python
+{'start': {'XDI': {'Element': {'edge': 'K', 'symbol': 'Sc'}, ...}, ...}, ...}
+```
+
+We can see that the catalog in total has 25 scans. (We can see this in the
+summary, or get it directly by using `len`.)
+
+```
+>>> catalog
+<Catalog {22521, 22524, 22525, 22526, 22528, 22542, 22545, ...} ~25 entries>
+>>> len(catalog)
+25
+```
+
+If we narrow it down to "K-edge" scans only, we see 20 results.
+
 ```python
 from tiled.queries import Key
 
-catalog.search(Key("start.num_points") > 3)
-catalog.search(Key("start.sample.element") == "Ni")
-catalog.search(Key("stop.exit_status") == "success")
+catalog.search(Key('start.XDI.Element.edge') == 'K')
+<Catalog {22521, 22524, 22525, 22526, 22528, 396, 397, 398, ...} ~20 entries>
+```
+
+Notice that the search method returns the same type object, just with
+filtered contents. Thus, searches can be chained to progressively
+narrow results.
+
+If we further narrow it to Scandium (`Sc`) we get down to four:
+
+```python
+>>> catalog.search(Key('start.XDI.Element.edge') == 'K').search(Key('start.XDI.Element.symbol') == 'Sc')
+<Catalog {36495, 36502, 36508, 36509}>
+
+We might stash that result in a variable and then peek at the first result.
+
+```python
+>>> results = catalog.search(Key('start.XDI.Element.edge') == 'K').search(Key('start.XDI.Element.symbol') == 'Sc')
+>>> result = results.values().first()
+>>> result['primary']['I0'][:]
+```
+
+We can loop over the results to perform some batch operation over them:
+
+```python
+for result in results.values():
+    # Do something
+    ...
 ```
 
 As a convenience, if the prefix `start.` or `stop.` is not specified, `start.`
 will be searched by default.[^1]
 
 ```python
-catalog.search(Key("num_points") > 3)  # "num_points" -> "start.num_points"
-```
-
-Queries can be chained to progressively narrow results:
-
-```python
-catalog.search(...).search(...).search(...)
-```
+>>> catalog.search(Key("num_points") > 400)  # "num_points" -> "start.num_points"
+<Catalog {22521, 22524, 22525, 22526, 22528, 396, 397, 398, ...} ~10 entries>
 
 Tiled provides [built-in search queries][] covering most common use cases:
 equality, comparison, full text, and more.
