@@ -24,8 +24,8 @@ We can look, for example, at some Bluesky data from the BMM beamline.
 <Catalog {22521, 22524, 22525, 22526, 22528, 22542, 22545, ...} ~25 entries>
 ```
 
-To get a sense of what we might search on, we might peek at the metadata on
-the first item.
+To get a sense of what we might search on, we might peek at the metadata on the
+first item.
 
 ```python
 >>> catalog.values().first().metadata
@@ -56,22 +56,32 @@ catalog.search(Key('start.XDI.Element.edge') == 'K')
 <Catalog {22521, 22524, 22525, 22526, 22528, 396, 397, 398, ...} ~20 entries>
 ```
 
-Notice that the search method returns the same type object, just with
-filtered contents. Thus, searches can be chained to progressively
-narrow results.
+Notice that the search method returns the same type object, just with filtered
+contents. Thus, searches can be chained to progressively narrow results.
 
 If we further narrow it to Scandium (`Sc`) we get down to four:
 
 ```python
 >>> catalog.search(Key('start.XDI.Element.edge') == 'K').search(Key('start.XDI.Element.symbol') == 'Sc')
 <Catalog {36495, 36502, 36508, 36509}>
+```
 
 We might stash that result in a variable and then peek at the first result.
 
 ```python
 >>> results = catalog.search(Key('start.XDI.Element.edge') == 'K').search(Key('start.XDI.Element.symbol') == 'Sc')
 >>> result = results.values().first()
->>> result['primary']['I0'][:]
+>>> result
+<BlueskyRun v3.0 streams: {'baseline', 'primary'} scan_id=36495 uid='903d6ca4' 2022-06-10 08:58>
+```
+
+From there, we can read the data into scientific Python data structures or
+export it to a files.
+
+```python
+>>> result['baseline'].read()  # xarray.Dataset
+>>> result['primary']['I0'][:]  # numpy array
+>>> result['primary']['I0'].export('I0.csv')  # file
 ```
 
 We can loop over the results to perform some batch operation over them:
@@ -88,6 +98,7 @@ will be searched by default.[^1]
 ```python
 >>> catalog.search(Key("num_points") > 400)  # "num_points" -> "start.num_points"
 <Catalog {22521, 22524, 22525, 22526, 22528, 396, 397, 398, ...} ~10 entries>
+```
 
 Tiled provides [built-in search queries][] covering most common use cases:
 equality, comparison, full text, and more.
