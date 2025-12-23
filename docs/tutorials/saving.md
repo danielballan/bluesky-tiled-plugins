@@ -156,10 +156,10 @@ tiled_client = from_uri("http://...")
 ```
 ````
 
-When used with detectors that write data directory to storage (e.g. on local disk,
-network file system, or object storage), it is necessary
-to set the `readable_storage` parameter. This grants the server permission to
-serve data at certain file paths(s).
+When used with detectors that write data directory to storage (e.g. on local
+disk, network file system, or object storage), it is necessary to set the
+`readable_storage` parameter. This grants the server permission to serve data at
+certain file paths(s).
 
 ### Subscribe
 

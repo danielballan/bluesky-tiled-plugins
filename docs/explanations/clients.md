@@ -7,11 +7,12 @@
 This package provides a set of custom Python clients designed to facilitate
 interaction with Bluesky data stored in Tiled catalogs.
 
-Simply _installing_ `bluesky-tiled-plugins` registers these clients with Tiled so it will
-automatically discover and use them.
+Simply _installing_ `bluesky-tiled-plugins` registers these clients with Tiled
+so it will automatically discover and use them.
 
-Navigating a Tiled catalog **with** `bluesky-tiled-plugins` installed, we readily see
-scientifically-useful information, such as the `scan_id`s of Bluesky runs:
+Navigating a Tiled catalog **with** `bluesky-tiled-plugins` installed, we
+readily see scientifically-useful information, such as the `scan_id`s of Bluesky
+runs:
 
 ```
  <Catalog {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ...} ~241632 entries>

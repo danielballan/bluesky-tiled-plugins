@@ -10,12 +10,12 @@ The former is responsible for converting legacy document schemas to their latest
 version; this ensures that existing Bluesky code that relies on older versions
 of the Bluesky Event Model can still function correctly with `TiledWriter`. For
 example, while `TiledWriter` natively supports the modern `StreamResource` and
-`StreamDatum` documents (commonly used in asynchronous plans), the `Resource` and
-`Datum` documents are automatically converted to their modern counterparts prior
-to being written to the Tiled catalog. The schema normalization is mostly done
-by renaming and restructuring certain document fields, but subclassing
-`RunNormalizer` also allows the user to invoke use-case-specific patches for each
-type of document and achieve high flexibility.
+`StreamDatum` documents (commonly used in asynchronous plans), the `Resource`
+and `Datum` documents are automatically converted to their modern counterparts
+prior to being written to the Tiled catalog. The schema normalization is mostly
+done by renaming and restructuring certain document fields, but subclassing
+`RunNormalizer` also allows the user to invoke use-case-specific patches for
+each type of document and achieve high flexibility.
 
 The simplified flowchart of the `RunNormalizer` logic is shown below. It
 illustrates how the input documents (top) are processed and emitted as output
@@ -85,7 +85,8 @@ flowchart TD
 
 The second component, `_RunWriter`, is the callback that directly communicates
 with the Tiled server. It uses the `RunRouter` to manage the routing of
-documents from multiple runs, ensuring that each Bluesky run is handled separately.
+documents from multiple runs, ensuring that each Bluesky run is handled
+separately.
 
 Furthermore, `TiledWriter` implements a backup mechanism that allows saving the
 documents to a local file system in case the Tiled server is not available or

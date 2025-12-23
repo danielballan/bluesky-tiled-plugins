@@ -8,8 +8,8 @@ html_theme.sidebar_secondary.remove: true
 
 ## Overview
 
-The **bluesky-tiled-plugins** library provides tools for using [Tiled][]
-with [Bluesky][]. It includes:
+The **bluesky-tiled-plugins** library provides tools for using [Tiled][] with
+[Bluesky][]. It includes:
 
 - A Bluesky callback for **saving metadata and data** from Bluesky documents in
   Tiled
@@ -17,8 +17,8 @@ with [Bluesky][]. It includes:
   metadata and provide Bluesky-specific convenience methods
 - Custom Tiled **search queries** targeting Bluesky-specific metadata like
   `ScanID` and `TimeRange`
-- A Tiled exporter that **"replays" Bluesky documents** constructing them from saved
-  data and metadata
+- A Tiled exporter that **"replays" Bluesky documents** constructing them from
+  saved data and metadata
 
 Documentation is split into [four categories](https://diataxis.fr), also
 accessible from links in the top bar.

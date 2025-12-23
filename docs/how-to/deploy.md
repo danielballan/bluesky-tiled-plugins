@@ -39,7 +39,8 @@ Launch Tiled with temporary storage. Optionally set a deterministic API key (the
 default is random each time you start the server).
 
 And, as above, if the server needs access to any detector-written files, pass
-the option `-r ...`. (You can pass `-r ...` multiple times to declare multiple paths.)
+the option `-r ...`. (You can pass `-r ...` multiple times to declare multiple
+paths.)
 
 ```sh
 tiled serve catalog --temp  [--api-key secret] [-r path/to/detector/data]
@@ -60,8 +61,9 @@ tiled serve catalog --init ./catalog.db -w duckdb://./storage.db [--api-key secr
 ```
 
 If you desire to use the same Tiled instance to upload processed or analyzed
-data, it is recommended to also provide Tiled with a writable filesystem location,
-`-w path/to/uploaded/data`, which would be used to save array data (as Zarr).
+data, it is recommended to also provide Tiled with a writable filesystem
+location, `-w path/to/uploaded/data`, which would be used to save array data (as
+Zarr).
 
 To enable the streaming Websockets capability, additionally pass a Redis
 connection string such as `--cache redis://localhost:6379` or
